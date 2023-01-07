@@ -119,9 +119,24 @@
 <Pos l='34' c='5' s='16'/>
 </Attr>
 </Id>
+<Id value='NATURAL1' typref='2'>
+<Attr>
+<Pos l='34' c='24' s='8'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='34' c='52' s='1'/>
+</Attr>
+<Id value='robot_x_position' typref='1'>
+<Attr>
+<Pos l='34' c='35' s='16'/>
+</Attr>
+</Id>
 <Id value='x_axis_range' typref='2'>
 <Attr>
-<Pos l='34' c='24' s='12'/>
+<Pos l='34' c='54' s='12'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -134,9 +149,24 @@
 <Pos l='36' c='5' s='16'/>
 </Attr>
 </Id>
+<Id value='NATURAL1' typref='2'>
+<Attr>
+<Pos l='36' c='24' s='8'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='36' c='52' s='1'/>
+</Attr>
+<Id value='robot_y_position' typref='1'>
+<Attr>
+<Pos l='36' c='35' s='16'/>
+</Attr>
+</Id>
 <Id value='y_axis_range' typref='2'>
 <Attr>
-<Pos l='36' c='24' s='12'/>
+<Pos l='36' c='54' s='12'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -2151,6 +2181,42 @@
 <Pos l='223' c='18' s='15'/>
 </Attr>
 </Id>
+</Values>
+</Assignement_Sub>
+</Body>
+</Operation>
+<Operation name='ResetRobot'>
+<Attr>
+<Pos l='230' c='5' s='10' endLine='233'/>
+</Attr>
+<Body>
+<Assignement_Sub>
+<Attr>
+<Pos l='232' c='44' s='2'/>
+</Attr>
+<Variables>
+<Id value='robot_x_position' typref='1'>
+<Attr>
+<Pos l='232' c='9' s='16'/>
+</Attr>
+</Id>
+<Id value='robot_y_position' typref='1'>
+<Attr>
+<Pos l='232' c='27' s='16'/>
+</Attr>
+</Id>
+</Variables>
+<Values>
+<Integer_Literal value='1' typref='1'>
+<Attr>
+<Pos l='232' c='47' s='1'/>
+</Attr>
+</Integer_Literal>
+<Integer_Literal value='1' typref='1'>
+<Attr>
+<Pos l='232' c='50' s='1'/>
+</Attr>
+</Integer_Literal>
 </Values>
 </Assignement_Sub>
 </Body>

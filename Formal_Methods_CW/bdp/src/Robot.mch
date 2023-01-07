@@ -31,9 +31,9 @@ ABSTRACT_VARIABLES
 
 INVARIANT
     // Robot's x-axis position is within the Maze's x-axis range (1-7)
-    robot_x_position : x_axis_range &
+    robot_x_position : NATURAL1 & robot_x_position : x_axis_range &
     // Robot's y-axis position is within the Maze's y-axis range (1-5)
-    robot_y_position : y_axis_range &
+    robot_y_position : NATURAL1 & robot_y_position : y_axis_range &
     // current position of the Robot (maplet (x |-> y)) is an element of the maze
     current_position : maze &
     // squares which have been visited by the Robot is stored as a sequence of Maze maplets 
@@ -221,6 +221,15 @@ OPERATIONS
     route <-- RobotsRoute =
     BEGIN
         route := visited_squares
+    END ;
+
+    /*
+     * ResetRobot:
+     * Reset the robot to it's original position
+     */
+    ResetRobot =
+    BEGIN
+        robot_x_position , robot_y_position := 1 , 1
     END
 
 END

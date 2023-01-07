@@ -57,7 +57,7 @@ THEORY ListInvariantX IS
   Expanded_List_Invariant(Machine(Robot))==(btrue);
   Abstract_List_Invariant(Machine(Robot))==(btrue);
   Context_List_Invariant(Machine(Robot))==(btrue);
-  List_Invariant(Machine(Robot))==(robot_x_position: x_axis_range & robot_y_position: y_axis_range & current_position: maze & visited_squares: seq(maze))
+  List_Invariant(Machine(Robot))==(robot_x_position: NATURAL1 & robot_x_position: x_axis_range & robot_y_position: NATURAL1 & robot_y_position: y_axis_range & current_position: maze & visited_squares: seq(maze))
 END
 &
 THEORY ListAssertionsX IS
@@ -95,8 +95,8 @@ THEORY ListConstraintsX IS
 END
 &
 THEORY ListOperationsX IS
-  Internal_List_Operations(Machine(Robot))==(MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute);
-  List_Operations(Machine(Robot))==(MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute)
+  Internal_List_Operations(Machine(Robot))==(MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute,ResetRobot);
+  List_Operations(Machine(Robot))==(MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute,ResetRobot)
 END
 &
 THEORY ListInputX IS
@@ -108,7 +108,8 @@ THEORY ListInputX IS
   List_Input(Machine(Robot),GetPosition)==(?);
   List_Input(Machine(Robot),FoundExit)==(?);
   List_Input(Machine(Robot),VisitedSquare)==(visited_x_position,visited_y_position);
-  List_Input(Machine(Robot),RobotsRoute)==(?)
+  List_Input(Machine(Robot),RobotsRoute)==(?);
+  List_Input(Machine(Robot),ResetRobot)==(?)
 END
 &
 THEORY ListOutputX IS
@@ -120,7 +121,8 @@ THEORY ListOutputX IS
   List_Output(Machine(Robot),GetPosition)==(position);
   List_Output(Machine(Robot),FoundExit)==(enquiry);
   List_Output(Machine(Robot),VisitedSquare)==(visited);
-  List_Output(Machine(Robot),RobotsRoute)==(route)
+  List_Output(Machine(Robot),RobotsRoute)==(route);
+  List_Output(Machine(Robot),ResetRobot)==(?)
 END
 &
 THEORY ListHeaderX IS
@@ -132,7 +134,8 @@ THEORY ListHeaderX IS
   List_Header(Machine(Robot),GetPosition)==(position <-- GetPosition);
   List_Header(Machine(Robot),FoundExit)==(enquiry <-- FoundExit);
   List_Header(Machine(Robot),VisitedSquare)==(visited <-- VisitedSquare(visited_x_position,visited_y_position));
-  List_Header(Machine(Robot),RobotsRoute)==(route <-- RobotsRoute)
+  List_Header(Machine(Robot),RobotsRoute)==(route <-- RobotsRoute);
+  List_Header(Machine(Robot),ResetRobot)==(ResetRobot)
 END
 &
 THEORY ListOperationGuardX END
@@ -146,10 +149,12 @@ THEORY ListPreconditionX IS
   List_Precondition(Machine(Robot),GetPosition)==(btrue);
   List_Precondition(Machine(Robot),FoundExit)==(btrue);
   List_Precondition(Machine(Robot),VisitedSquare)==(visited: OUTPUTS & visited_x_position: NATURAL1 & visited_y_position: NATURAL1);
-  List_Precondition(Machine(Robot),RobotsRoute)==(btrue)
+  List_Precondition(Machine(Robot),RobotsRoute)==(btrue);
+  List_Precondition(Machine(Robot),ResetRobot)==(btrue)
 END
 &
 THEORY ListSubstitutionX IS
+  Expanded_List_Substitution(Machine(Robot),ResetRobot)==(btrue | robot_x_position,robot_y_position:=1,1);
   Expanded_List_Substitution(Machine(Robot),RobotsRoute)==(btrue | route:=visited_squares);
   Expanded_List_Substitution(Machine(Robot),VisitedSquare)==(visited: OUTPUTS & visited_x_position: NATURAL1 & visited_y_position: NATURAL1 | visited_x_position|->visited_y_position: maze ==> (visited_x_position|->visited_y_position: ran(front(visited_squares)) ==> visited:=yes [] not(visited_x_position|->visited_y_position: ran(front(visited_squares))) ==> visited:=no) [] not(visited_x_position|->visited_y_position: maze) ==> visited:=Exceeding_Maze_Boundary);
   Expanded_List_Substitution(Machine(Robot),FoundExit)==(btrue | current_position: exit_square ==> enquiry:=yes [] not(current_position: exit_square) ==> enquiry:=no);
@@ -167,7 +172,8 @@ THEORY ListSubstitutionX IS
   List_Substitution(Machine(Robot),GetPosition)==(position:=current_position);
   List_Substitution(Machine(Robot),FoundExit)==(IF current_position: exit_square THEN enquiry:=yes ELSE enquiry:=no END);
   List_Substitution(Machine(Robot),VisitedSquare)==(IF visited_x_position|->visited_y_position: maze THEN IF visited_x_position|->visited_y_position: ran(front(visited_squares)) THEN visited:=yes ELSE visited:=no END ELSE visited:=Exceeding_Maze_Boundary END);
-  List_Substitution(Machine(Robot),RobotsRoute)==(route:=visited_squares)
+  List_Substitution(Machine(Robot),RobotsRoute)==(route:=visited_squares);
+  List_Substitution(Machine(Robot),ResetRobot)==(robot_x_position,robot_y_position:=1,1)
 END
 &
 THEORY ListConstantsX IS
@@ -224,11 +230,12 @@ THEORY ListANYVarX IS
   List_ANY_Var(Machine(Robot),GetPosition)==(?);
   List_ANY_Var(Machine(Robot),FoundExit)==(?);
   List_ANY_Var(Machine(Robot),VisitedSquare)==(?);
-  List_ANY_Var(Machine(Robot),RobotsRoute)==(?)
+  List_ANY_Var(Machine(Robot),RobotsRoute)==(?);
+  List_ANY_Var(Machine(Robot),ResetRobot)==(?)
 END
 &
 THEORY ListOfIdsX IS
-  List_Of_Ids(Machine(Robot)) == (OUTPUTS,Moved_North,Moved_East,Moved_South,Moved_West,Exceeding_Maze_Boundary,Maze_Wall_Crash,Cannot_Teleport_Immediately,Cannot_Teleport_To_The_Same_Square,Teleported,yes,no | ? | visited_squares,current_position,robot_y_position,robot_x_position | ? | MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute | ? | seen(Machine(Maze)) | ? | Robot);
+  List_Of_Ids(Machine(Robot)) == (OUTPUTS,Moved_North,Moved_East,Moved_South,Moved_West,Exceeding_Maze_Boundary,Maze_Wall_Crash,Cannot_Teleport_Immediately,Cannot_Teleport_To_The_Same_Square,Teleported,yes,no | ? | visited_squares,current_position,robot_y_position,robot_x_position | ? | MoveNorth,MoveEast,MoveSouth,MoveWest,Teleport,GetPosition,FoundExit,VisitedSquare,RobotsRoute,ResetRobot | ? | seen(Machine(Maze)) | ? | Robot);
   List_Of_HiddenCst_Ids(Machine(Robot)) == (? | ?);
   List_Of_VisibleCst_Ids(Machine(Robot)) == (?);
   List_Of_VisibleVar_Ids(Machine(Robot)) == (? | ?);
@@ -253,7 +260,7 @@ THEORY VariablesEnvX IS
 END
 &
 THEORY OperationsEnvX IS
-  Operations(Machine(Robot)) == (Type(RobotsRoute) == Cst(SetOf(btype(INTEGER,?,?)*(btype(INTEGER,?,?)*btype(INTEGER,?,?))),No_type);Type(VisitedSquare) == Cst(etype(OUTPUTS,?,?),btype(INTEGER,?,?)*btype(INTEGER,?,?));Type(FoundExit) == Cst(etype(OUTPUTS,?,?),No_type);Type(GetPosition) == Cst(btype(INTEGER,?,?)*btype(INTEGER,?,?),No_type);Type(Teleport) == Cst(etype(OUTPUTS,?,?),btype(INTEGER,?,?)*btype(INTEGER,?,?));Type(MoveWest) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveSouth) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveEast) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveNorth) == Cst(etype(OUTPUTS,?,?),No_type));
+  Operations(Machine(Robot)) == (Type(ResetRobot) == Cst(No_type,No_type);Type(RobotsRoute) == Cst(SetOf(btype(INTEGER,?,?)*(btype(INTEGER,?,?)*btype(INTEGER,?,?))),No_type);Type(VisitedSquare) == Cst(etype(OUTPUTS,?,?),btype(INTEGER,?,?)*btype(INTEGER,?,?));Type(FoundExit) == Cst(etype(OUTPUTS,?,?),No_type);Type(GetPosition) == Cst(btype(INTEGER,?,?)*btype(INTEGER,?,?),No_type);Type(Teleport) == Cst(etype(OUTPUTS,?,?),btype(INTEGER,?,?)*btype(INTEGER,?,?));Type(MoveWest) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveSouth) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveEast) == Cst(etype(OUTPUTS,?,?),No_type);Type(MoveNorth) == Cst(etype(OUTPUTS,?,?),No_type));
   Observers(Machine(Robot)) == (Type(RobotsRoute) == Cst(SetOf(btype(INTEGER,?,?)*(btype(INTEGER,?,?)*btype(INTEGER,?,?))),No_type);Type(VisitedSquare) == Cst(etype(OUTPUTS,?,?),btype(INTEGER,?,?)*btype(INTEGER,?,?));Type(FoundExit) == Cst(etype(OUTPUTS,?,?),No_type);Type(GetPosition) == Cst(btype(INTEGER,?,?)*btype(INTEGER,?,?),No_type))
 END
 &

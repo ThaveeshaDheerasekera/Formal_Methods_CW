@@ -11,14 +11,14 @@ SEES
 
 DEFINITIONS
     // GUI animation functions
-    ANIMATION_FUNCTION == ( { row , column , image | column : x_axis_range & row : y_axis_range & images = 0 & ( column , 6 - row ) /: internal_walls } ) ;
-    ANIMATION_FUNCTION1 == ( { row , column , image | column : x_axis_range & row : y_axis_range & images = 1 & ( column , 6 - row ) : internal_walls } ) ;
-    ANIMATION_FUNCTION2 == ( { row , column , image | column : x_axis_range & row : y_axis_range & images = 2 & column = robot_x_position & row = robot_y_position } ) ;
+    ANIMATION_FUNCTION == ( { row , column , image | column : x_axis_range & row : y_axis_range & image = 0 & ( column , 6 - row ) /: internal_walls } ) ;
+    ANIMATION_FUNCTION1 == ( { row , column , image | column : x_axis_range & row : y_axis_range & image = 1 & ( column , 6 - row ) : internal_walls } ) ;
+    ANIMATION_FUNCTION2 == ( { row , column , image | column : x_axis_range & row : y_axis_range & image = 2 & column = robot_x_position & row = ( 6 - robot_y_position ) } ) ;
 
 
-    ANIMATION_IMG0 == "images/empty_cell.gif" ;
-    ANIMATION_IMG1 == "images/internal_wall.gif" ;
-    ANIMATION_IMG2 == "images/robot.gif" ;
+    ANIMATION_IMG0 == "./images/empty_cell.gif" ;
+    ANIMATION_IMG1 == "./images/internal_wall.gif" ;
+    ANIMATION_IMG2 == "./images/robot.gif" ;
 
 SETS
     OUTPUTS = { Moved_North , Moved_East , Moved_South , Moved_West , Exceeding_Maze_Boundary , Maze_Wall_Crash , Cannot_Teleport_Immediately , Cannot_Teleport_To_The_Same_Square , Teleported , yes , no }
@@ -31,9 +31,9 @@ ABSTRACT_VARIABLES
 
 INVARIANT
     // Robot's x-axis position is within the Maze's x-axis range (1-7)
-    robot_x_position : x_axis_range &
+    robot_x_position : NATURAL1 & robot_x_position : x_axis_range &
     // Robot's y-axis position is within the Maze's y-axis range (1-5)
-    robot_y_position : y_axis_range &
+    robot_y_position : NATURAL1 & robot_y_position : y_axis_range &
     // current position of the Robot (maplet (x |-> y)) is an element of the maze
     current_position : maze &
     // squares which have been visited by the Robot is stored as a sequence of Maze maplets 
@@ -221,6 +221,15 @@ OPERATIONS
     route <-- RobotsRoute =
     BEGIN
         route := visited_squares
+    END ;
+
+    /*
+     * ResetRobot:
+     * Reset the robot to it's original position
+     */
+    ResetRobot =
+    BEGIN
+        robot_x_position , robot_y_position := 1 , 1
     END
 
 END
