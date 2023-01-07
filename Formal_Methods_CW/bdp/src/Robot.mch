@@ -141,30 +141,22 @@ OPERATIONS
      * Teleport only works after an initial movement has been made. (E.g:- After the first MoveNorth Operation)
      */
     output <-- Teleport ( teleport_x_position , teleport_y_position ) =
-    PRE output : OUTPUTS & teleport_x_position : NATURAL1 & teleport_y_position : NATURAL1
+    PRE ( teleport_x_position : NATURAL1 ) & ( teleport_y_position : NATURAL1 ) & ( teleport_x_position : x_axis_range ) & ( teleport_y_position : y_axis_range )
     THEN
-        // Makes sure that this is not the first move
-        IF ( size ( visited_squares ) = 1 )
-        THEN
-            output := Cannot_Teleport_Immediately
-        // Makes sure that the robot doesn't teleport to an internal wall
-        ELSIF ( ( teleport_x_position |-> teleport_y_position ) : internal_walls )
+        IF ( ( teleport_x_position |-> teleport_y_position ) : internal_walls ) // Check if the square the robot is trying to teleport to, is an internal wall 
         THEN
             output := Maze_Wall_Crash
-        // Makes sure that the robot doesn't teleport to the same current square
-        ELSIF ( teleport_x_position = robot_x_position & teleport_y_position = robot_y_position )
+        ELSIF ( ( size ( visited_squares ) = 1 ) ) // It is not acceptable to immediately teleport the robot, to the exit square
         THEN
-            output := Cannot_Teleport_To_The_Same_Square
-        // Makes sure that the robot doesn't teleport itself out of the maze
-        ELSIF ( ( teleport_x_position |-> teleport_y_position ) /: maze )
+            output := Cannot_Teleport_Immediately
+        ELSIF ( ( teleport_x_position |-> teleport_y_position ) : maze )
         THEN
-            output := Exceeding_Maze_Boundary
+                    output := Cannot_Teleport_Immediately
+        ELSIF ( ( teleport_x_position |-> teleport_y_position ) /= ( robot_x_position |-> robot_y_position ) )
+        THEN
+                    output := Cannot_Teleport_Immediately
         ELSE
-            visited_squares := ( visited_squares <- ( teleport_x_position |-> teleport_y_position ) ) ||
-            current_position := ( teleport_x_position |-> teleport_y_position ) ||
-            robot_x_position := teleport_x_position ||
-            robot_y_position := teleport_y_position ||
-            output := Teleported
+            robot_x_position , robot_y_position , output := teleport_x_position , teleport_y_position , Teleported
         END
     END ;
 

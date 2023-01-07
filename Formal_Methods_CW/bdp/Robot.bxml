@@ -1414,7 +1414,7 @@
 </Operation>
 <Operation name='Teleport'>
 <Attr>
-<Pos l='143' c='5' s='6' endLine='169'/>
+<Pos l='143' c='5' s='6' endLine='161'/>
 </Attr>
 <Output_Parameters>
 <Id value='output' typref='5'>
@@ -1439,46 +1439,61 @@
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='144' c='16' s='1'/>
-</Attr>
-<Id value='output' typref='5'>
-<Attr>
-<Pos l='144' c='9' s='6'/>
-</Attr>
-</Id>
-<Id value='OUTPUTS' typref='4'>
-<Attr>
-<Pos l='144' c='18' s='7'/>
-</Attr>
-</Id>
-</Exp_Comparison>
-<Exp_Comparison op=':'>
-<Attr>
-<Pos l='144' c='47' s='1'/>
+<Pos l='144' c='30' s='1'/>
 </Attr>
 <Id value='teleport_x_position' typref='1'>
 <Attr>
-<Pos l='144' c='28' s='19'/>
+<Pos l='144' c='10' s='19'/>
 </Attr>
 </Id>
 <Id value='NATURAL1' typref='2'>
 <Attr>
-<Pos l='144' c='48' s='8'/>
+<Pos l='144' c='32' s='8'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='144' c='78' s='1'/>
+<Pos l='144' c='65' s='1'/>
 </Attr>
 <Id value='teleport_y_position' typref='1'>
 <Attr>
-<Pos l='144' c='59' s='19'/>
+<Pos l='144' c='45' s='19'/>
 </Attr>
 </Id>
 <Id value='NATURAL1' typref='2'>
 <Attr>
-<Pos l='144' c='79' s='8'/>
+<Pos l='144' c='67' s='8'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='144' c='100' s='1'/>
+</Attr>
+<Id value='teleport_x_position' typref='1'>
+<Attr>
+<Pos l='144' c='80' s='19'/>
+</Attr>
+</Id>
+<Id value='x_axis_range' typref='2'>
+<Attr>
+<Pos l='144' c='102' s='12'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='144' c='139' s='1'/>
+</Attr>
+<Id value='teleport_y_position' typref='1'>
+<Attr>
+<Pos l='144' c='119' s='19'/>
+</Attr>
+</Id>
+<Id value='y_axis_range' typref='2'>
+<Attr>
+<Pos l='144' c='141' s='12'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -1487,26 +1502,76 @@
 <Body>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='147' c='9' s='2'/>
+<Pos l='146' c='9' s='2'/>
 </Attr>
+<Condition>
+<Exp_Comparison op=':'>
+<Attr>
+<Pos l='146' c='59' s='1'/>
+</Attr>
+<Binary_Exp op='|-&gt;' typref='6'>
+<Attr>
+<Pos l='146' c='34' s='3'/>
+</Attr>
+<Id value='teleport_x_position' typref='1'>
+<Attr>
+<Pos l='146' c='14' s='19'/>
+</Attr>
+</Id>
+<Id value='teleport_y_position' typref='1'>
+<Attr>
+<Pos l='146' c='38' s='19'/>
+</Attr>
+</Id>
+</Binary_Exp>
+<Id value='internal_walls' typref='8'>
+<Attr>
+<Pos l='146' c='61' s='14'/>
+</Attr>
+</Id>
+</Exp_Comparison>
+</Condition>
+<Then>
+<Assignement_Sub>
+<Attr>
+<Pos l='148' c='20' s='2'/>
+</Attr>
+<Variables>
+<Id value='output' typref='5'>
+<Attr>
+<Pos l='148' c='13' s='6'/>
+</Attr>
+</Id>
+</Variables>
+<Values>
+<Id value='Maze_Wall_Crash' typref='5'>
+<Attr>
+<Pos l='148' c='23' s='15'/>
+</Attr>
+</Id>
+</Values>
+</Assignement_Sub>
+</Then>
+<Else>
+<If_Sub elseif='yes'>
 <Condition>
 <Exp_Comparison op='='>
 <Attr>
-<Pos l='147' c='35' s='1'/>
+<Pos l='149' c='39' s='1'/>
 </Attr>
 <Unary_Exp op='size' typref='1'>
 <Attr>
-<Pos l='147' c='13' s='4'/>
+<Pos l='149' c='17' s='4'/>
 </Attr>
 <Id value='visited_squares' typref='7'>
 <Attr>
-<Pos l='147' c='18' s='15'/>
+<Pos l='149' c='22' s='15'/>
 </Attr>
 </Id>
 </Unary_Exp>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='147' c='37' s='1'/>
+<Pos l='149' c='41' s='1'/>
 </Attr>
 </Integer_Literal>
 </Exp_Comparison>
@@ -1514,19 +1579,19 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='149' c='20' s='2'/>
+<Pos l='151' c='20' s='2'/>
 </Attr>
 <Variables>
 <Id value='output' typref='5'>
 <Attr>
-<Pos l='149' c='13' s='6'/>
+<Pos l='151' c='13' s='6'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='Cannot_Teleport_Immediately' typref='5'>
 <Attr>
-<Pos l='149' c='23' s='27'/>
+<Pos l='151' c='23' s='27'/>
 </Attr>
 </Id>
 </Values>
@@ -1537,133 +1602,26 @@
 <Condition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='151' c='62' s='1'/>
+<Pos l='152' c='62' s='1'/>
 </Attr>
 <Binary_Exp op='|-&gt;' typref='6'>
 <Attr>
-<Pos l='151' c='37' s='3'/>
+<Pos l='152' c='37' s='3'/>
 </Attr>
 <Id value='teleport_x_position' typref='1'>
 <Attr>
-<Pos l='151' c='17' s='19'/>
+<Pos l='152' c='17' s='19'/>
 </Attr>
 </Id>
 <Id value='teleport_y_position' typref='1'>
 <Attr>
-<Pos l='151' c='41' s='19'/>
-</Attr>
-</Id>
-</Binary_Exp>
-<Id value='internal_walls' typref='8'>
-<Attr>
-<Pos l='151' c='64' s='14'/>
-</Attr>
-</Id>
-</Exp_Comparison>
-</Condition>
-<Then>
-<Assignement_Sub>
-<Attr>
-<Pos l='153' c='20' s='2'/>
-</Attr>
-<Variables>
-<Id value='output' typref='5'>
-<Attr>
-<Pos l='153' c='13' s='6'/>
-</Attr>
-</Id>
-</Variables>
-<Values>
-<Id value='Maze_Wall_Crash' typref='5'>
-<Attr>
-<Pos l='153' c='23' s='15'/>
-</Attr>
-</Id>
-</Values>
-</Assignement_Sub>
-</Then>
-<Else>
-<If_Sub elseif='yes'>
-<Condition>
-<Nary_Pred op='&amp;'>
-<Exp_Comparison op='='>
-<Attr>
-<Pos l='155' c='36' s='1'/>
-</Attr>
-<Id value='teleport_x_position' typref='1'>
-<Attr>
-<Pos l='155' c='16' s='19'/>
-</Attr>
-</Id>
-<Id value='robot_x_position' typref='1'>
-<Attr>
-<Pos l='155' c='38' s='16'/>
-</Attr>
-</Id>
-</Exp_Comparison>
-<Exp_Comparison op='='>
-<Attr>
-<Pos l='155' c='77' s='1'/>
-</Attr>
-<Id value='teleport_y_position' typref='1'>
-<Attr>
-<Pos l='155' c='57' s='19'/>
-</Attr>
-</Id>
-<Id value='robot_y_position' typref='1'>
-<Attr>
-<Pos l='155' c='79' s='16'/>
-</Attr>
-</Id>
-</Exp_Comparison>
-</Nary_Pred>
-</Condition>
-<Then>
-<Assignement_Sub>
-<Attr>
-<Pos l='157' c='20' s='2'/>
-</Attr>
-<Variables>
-<Id value='output' typref='5'>
-<Attr>
-<Pos l='157' c='13' s='6'/>
-</Attr>
-</Id>
-</Variables>
-<Values>
-<Id value='Cannot_Teleport_To_The_Same_Square' typref='5'>
-<Attr>
-<Pos l='157' c='23' s='34'/>
-</Attr>
-</Id>
-</Values>
-</Assignement_Sub>
-</Then>
-<Else>
-<If_Sub elseif='yes'>
-<Condition>
-<Exp_Comparison op='/:'>
-<Attr>
-<Pos l='159' c='62' s='2'/>
-</Attr>
-<Binary_Exp op='|-&gt;' typref='6'>
-<Attr>
-<Pos l='159' c='37' s='3'/>
-</Attr>
-<Id value='teleport_x_position' typref='1'>
-<Attr>
-<Pos l='159' c='17' s='19'/>
-</Attr>
-</Id>
-<Id value='teleport_y_position' typref='1'>
-<Attr>
-<Pos l='159' c='41' s='19'/>
+<Pos l='152' c='41' s='19'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Id value='maze' typref='8'>
 <Attr>
-<Pos l='159' c='65' s='4'/>
+<Pos l='152' c='64' s='4'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -1671,152 +1629,124 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='161' c='20' s='2'/>
+<Pos l='154' c='28' s='2'/>
 </Attr>
 <Variables>
 <Id value='output' typref='5'>
 <Attr>
-<Pos l='161' c='13' s='6'/>
+<Pos l='154' c='21' s='6'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
-<Id value='Exceeding_Maze_Boundary' typref='5'>
+<Id value='Cannot_Teleport_Immediately' typref='5'>
 <Attr>
-<Pos l='161' c='23' s='23'/>
+<Pos l='154' c='31' s='27'/>
 </Attr>
 </Id>
 </Values>
 </Assignement_Sub>
 </Then>
 <Else>
-<Nary_Sub op='||'>
-<Assignement_Sub>
+<If_Sub elseif='yes'>
+<Condition>
+<Exp_Comparison op='/='>
 <Attr>
-<Pos l='163' c='29' s='2'/>
+<Pos l='155' c='62' s='2'/>
 </Attr>
-<Variables>
-<Id value='visited_squares' typref='7'>
-<Attr>
-<Pos l='163' c='13' s='15'/>
-</Attr>
-</Id>
-</Variables>
-<Values>
-<Binary_Exp op='&lt;-' typref='7'>
-<Attr>
-<Pos l='163' c='49' s='2'/>
-</Attr>
-<Id value='visited_squares' typref='7'>
-<Attr>
-<Pos l='163' c='33' s='15'/>
-</Attr>
-</Id>
 <Binary_Exp op='|-&gt;' typref='6'>
 <Attr>
-<Pos l='163' c='73' s='3'/>
+<Pos l='155' c='37' s='3'/>
 </Attr>
 <Id value='teleport_x_position' typref='1'>
 <Attr>
-<Pos l='163' c='53' s='19'/>
+<Pos l='155' c='17' s='19'/>
 </Attr>
 </Id>
 <Id value='teleport_y_position' typref='1'>
 <Attr>
-<Pos l='163' c='77' s='19'/>
+<Pos l='155' c='41' s='19'/>
 </Attr>
 </Id>
 </Binary_Exp>
-</Binary_Exp>
-</Values>
-</Assignement_Sub>
-<Assignement_Sub>
-<Attr>
-<Pos l='164' c='30' s='2'/>
-</Attr>
-<Variables>
-<Id value='current_position' typref='6'>
-<Attr>
-<Pos l='164' c='13' s='16'/>
-</Attr>
-</Id>
-</Variables>
-<Values>
 <Binary_Exp op='|-&gt;' typref='6'>
 <Attr>
-<Pos l='164' c='54' s='3'/>
+<Pos l='155' c='83' s='3'/>
 </Attr>
-<Id value='teleport_x_position' typref='1'>
-<Attr>
-<Pos l='164' c='34' s='19'/>
-</Attr>
-</Id>
-<Id value='teleport_y_position' typref='1'>
-<Attr>
-<Pos l='164' c='58' s='19'/>
-</Attr>
-</Id>
-</Binary_Exp>
-</Values>
-</Assignement_Sub>
-<Assignement_Sub>
-<Attr>
-<Pos l='165' c='30' s='2'/>
-</Attr>
-<Variables>
 <Id value='robot_x_position' typref='1'>
 <Attr>
-<Pos l='165' c='13' s='16'/>
+<Pos l='155' c='66' s='16'/>
 </Attr>
 </Id>
-</Variables>
-<Values>
-<Id value='teleport_x_position' typref='1'>
-<Attr>
-<Pos l='165' c='33' s='19'/>
-</Attr>
-</Id>
-</Values>
-</Assignement_Sub>
-<Assignement_Sub>
-<Attr>
-<Pos l='166' c='30' s='2'/>
-</Attr>
-<Variables>
 <Id value='robot_y_position' typref='1'>
 <Attr>
-<Pos l='166' c='13' s='16'/>
+<Pos l='155' c='87' s='16'/>
 </Attr>
 </Id>
-</Variables>
-<Values>
-<Id value='teleport_y_position' typref='1'>
-<Attr>
-<Pos l='166' c='33' s='19'/>
-</Attr>
-</Id>
-</Values>
-</Assignement_Sub>
+</Binary_Exp>
+</Exp_Comparison>
+</Condition>
+<Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='167' c='20' s='2'/>
+<Pos l='157' c='28' s='2'/>
 </Attr>
 <Variables>
 <Id value='output' typref='5'>
 <Attr>
-<Pos l='167' c='13' s='6'/>
+<Pos l='157' c='21' s='6'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
-<Id value='Teleported' typref='5'>
+<Id value='Cannot_Teleport_Immediately' typref='5'>
 <Attr>
-<Pos l='167' c='23' s='10'/>
+<Pos l='157' c='31' s='27'/>
 </Attr>
 </Id>
 </Values>
 </Assignement_Sub>
-</Nary_Sub>
+</Then>
+<Else>
+<Assignement_Sub>
+<Attr>
+<Pos l='159' c='56' s='2'/>
+</Attr>
+<Variables>
+<Id value='robot_x_position' typref='1'>
+<Attr>
+<Pos l='159' c='13' s='16'/>
+</Attr>
+</Id>
+<Id value='robot_y_position' typref='1'>
+<Attr>
+<Pos l='159' c='31' s='16'/>
+</Attr>
+</Id>
+<Id value='output' typref='5'>
+<Attr>
+<Pos l='159' c='49' s='6'/>
+</Attr>
+</Id>
+</Variables>
+<Values>
+<Id value='teleport_x_position' typref='1'>
+<Attr>
+<Pos l='159' c='59' s='19'/>
+</Attr>
+</Id>
+<Id value='teleport_y_position' typref='1'>
+<Attr>
+<Pos l='159' c='80' s='19'/>
+</Attr>
+</Id>
+<Id value='Teleported' typref='5'>
+<Attr>
+<Pos l='159' c='102' s='10'/>
+</Attr>
+</Id>
+</Values>
+</Assignement_Sub>
 </Else>
 </If_Sub>
 </Else>
@@ -1829,31 +1759,31 @@
 </Operation>
 <Operation name='GetPosition'>
 <Attr>
-<Pos l='175' c='5' s='8' endLine='178'/>
+<Pos l='167' c='5' s='8' endLine='170'/>
 </Attr>
 <Output_Parameters>
 <Id value='position' typref='6'>
 <Attr>
-<Pos l='175' c='5' s='8'/>
+<Pos l='167' c='5' s='8'/>
 </Attr>
 </Id>
 </Output_Parameters>
 <Body>
 <Assignement_Sub>
 <Attr>
-<Pos l='177' c='22' s='2'/>
+<Pos l='169' c='22' s='2'/>
 </Attr>
 <Variables>
 <Id value='position' typref='6'>
 <Attr>
-<Pos l='177' c='13' s='8'/>
+<Pos l='169' c='13' s='8'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='current_position' typref='6'>
 <Attr>
-<Pos l='177' c='25' s='16'/>
+<Pos l='169' c='25' s='16'/>
 </Attr>
 </Id>
 </Values>
@@ -1862,33 +1792,33 @@
 </Operation>
 <Operation name='FoundExit'>
 <Attr>
-<Pos l='184' c='5' s='7' endLine='193'/>
+<Pos l='176' c='5' s='7' endLine='185'/>
 </Attr>
 <Output_Parameters>
 <Id value='enquiry' typref='5'>
 <Attr>
-<Pos l='184' c='5' s='7'/>
+<Pos l='176' c='5' s='7'/>
 </Attr>
 </Id>
 </Output_Parameters>
 <Body>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='187' c='9' s='2'/>
+<Pos l='179' c='9' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='187' c='30' s='1'/>
+<Pos l='179' c='30' s='1'/>
 </Attr>
 <Id value='current_position' typref='6'>
 <Attr>
-<Pos l='187' c='13' s='16'/>
+<Pos l='179' c='13' s='16'/>
 </Attr>
 </Id>
 <Id value='exit_square' typref='8'>
 <Attr>
-<Pos l='187' c='32' s='11'/>
+<Pos l='179' c='32' s='11'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -1896,19 +1826,19 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='189' c='21' s='2'/>
+<Pos l='181' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='enquiry' typref='5'>
 <Attr>
-<Pos l='189' c='13' s='7'/>
+<Pos l='181' c='13' s='7'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='yes' typref='5'>
 <Attr>
-<Pos l='189' c='24' s='3'/>
+<Pos l='181' c='24' s='3'/>
 </Attr>
 </Id>
 </Values>
@@ -1917,19 +1847,19 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='191' c='21' s='2'/>
+<Pos l='183' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='enquiry' typref='5'>
 <Attr>
-<Pos l='191' c='13' s='7'/>
+<Pos l='183' c='13' s='7'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='no' typref='5'>
 <Attr>
-<Pos l='191' c='24' s='2'/>
+<Pos l='183' c='24' s='2'/>
 </Attr>
 </Id>
 </Values>
@@ -1940,24 +1870,24 @@
 </Operation>
 <Operation name='VisitedSquare'>
 <Attr>
-<Pos l='199' c='5' s='7' endLine='215'/>
+<Pos l='191' c='5' s='7' endLine='207'/>
 </Attr>
 <Output_Parameters>
 <Id value='visited' typref='5'>
 <Attr>
-<Pos l='199' c='5' s='7'/>
+<Pos l='191' c='5' s='7'/>
 </Attr>
 </Id>
 </Output_Parameters>
 <Input_Parameters>
 <Id value='visited_x_position' typref='1'>
 <Attr>
-<Pos l='199' c='31' s='18'/>
+<Pos l='191' c='31' s='18'/>
 </Attr>
 </Id>
 <Id value='visited_y_position' typref='1'>
 <Attr>
-<Pos l='199' c='51' s='18'/>
+<Pos l='191' c='51' s='18'/>
 </Attr>
 </Id>
 </Input_Parameters>
@@ -1965,46 +1895,46 @@
 <Nary_Pred op='&amp;'>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='200' c='17' s='1'/>
+<Pos l='192' c='17' s='1'/>
 </Attr>
 <Id value='visited' typref='5'>
 <Attr>
-<Pos l='200' c='9' s='7'/>
+<Pos l='192' c='9' s='7'/>
 </Attr>
 </Id>
 <Id value='OUTPUTS' typref='4'>
 <Attr>
-<Pos l='200' c='19' s='7'/>
+<Pos l='192' c='19' s='7'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='200' c='48' s='1'/>
+<Pos l='192' c='48' s='1'/>
 </Attr>
 <Id value='visited_x_position' typref='1'>
 <Attr>
-<Pos l='200' c='29' s='18'/>
+<Pos l='192' c='29' s='18'/>
 </Attr>
 </Id>
 <Id value='NATURAL1' typref='2'>
 <Attr>
-<Pos l='200' c='50' s='8'/>
+<Pos l='192' c='50' s='8'/>
 </Attr>
 </Id>
 </Exp_Comparison>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='200' c='80' s='1'/>
+<Pos l='192' c='80' s='1'/>
 </Attr>
 <Id value='visited_y_position' typref='1'>
 <Attr>
-<Pos l='200' c='61' s='18'/>
+<Pos l='192' c='61' s='18'/>
 </Attr>
 </Id>
 <Id value='NATURAL1' typref='2'>
 <Attr>
-<Pos l='200' c='82' s='8'/>
+<Pos l='192' c='82' s='8'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -2013,31 +1943,31 @@
 <Body>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='203' c='9' s='2'/>
+<Pos l='195' c='9' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='203' c='57' s='1'/>
+<Pos l='195' c='57' s='1'/>
 </Attr>
 <Binary_Exp op='|-&gt;' typref='6'>
 <Attr>
-<Pos l='203' c='33' s='3'/>
+<Pos l='195' c='33' s='3'/>
 </Attr>
 <Id value='visited_x_position' typref='1'>
 <Attr>
-<Pos l='203' c='14' s='18'/>
+<Pos l='195' c='14' s='18'/>
 </Attr>
 </Id>
 <Id value='visited_y_position' typref='1'>
 <Attr>
-<Pos l='203' c='37' s='18'/>
+<Pos l='195' c='37' s='18'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Id value='maze' typref='8'>
 <Attr>
-<Pos l='203' c='59' s='4'/>
+<Pos l='195' c='59' s='4'/>
 </Attr>
 </Id>
 </Exp_Comparison>
@@ -2045,39 +1975,39 @@
 <Then>
 <If_Sub elseif='no'>
 <Attr>
-<Pos l='206' c='13' s='2'/>
+<Pos l='198' c='13' s='2'/>
 </Attr>
 <Condition>
 <Exp_Comparison op=':'>
 <Attr>
-<Pos l='206' c='61' s='1'/>
+<Pos l='198' c='61' s='1'/>
 </Attr>
 <Binary_Exp op='|-&gt;' typref='6'>
 <Attr>
-<Pos l='206' c='37' s='3'/>
+<Pos l='198' c='37' s='3'/>
 </Attr>
 <Id value='visited_x_position' typref='1'>
 <Attr>
-<Pos l='206' c='18' s='18'/>
+<Pos l='198' c='18' s='18'/>
 </Attr>
 </Id>
 <Id value='visited_y_position' typref='1'>
 <Attr>
-<Pos l='206' c='41' s='18'/>
+<Pos l='198' c='41' s='18'/>
 </Attr>
 </Id>
 </Binary_Exp>
 <Unary_Exp op='ran' typref='8'>
 <Attr>
-<Pos l='206' c='63' s='3'/>
+<Pos l='198' c='63' s='3'/>
 </Attr>
 <Unary_Exp op='front' typref='7'>
 <Attr>
-<Pos l='206' c='67' s='5'/>
+<Pos l='198' c='67' s='5'/>
 </Attr>
 <Id value='visited_squares' typref='7'>
 <Attr>
-<Pos l='206' c='73' s='15'/>
+<Pos l='198' c='73' s='15'/>
 </Attr>
 </Id>
 </Unary_Exp>
@@ -2087,19 +2017,19 @@
 <Then>
 <Assignement_Sub>
 <Attr>
-<Pos l='208' c='25' s='2'/>
+<Pos l='200' c='25' s='2'/>
 </Attr>
 <Variables>
 <Id value='visited' typref='5'>
 <Attr>
-<Pos l='208' c='17' s='7'/>
+<Pos l='200' c='17' s='7'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='yes' typref='5'>
 <Attr>
-<Pos l='208' c='28' s='3'/>
+<Pos l='200' c='28' s='3'/>
 </Attr>
 </Id>
 </Values>
@@ -2108,19 +2038,19 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='210' c='25' s='2'/>
+<Pos l='202' c='25' s='2'/>
 </Attr>
 <Variables>
 <Id value='visited' typref='5'>
 <Attr>
-<Pos l='210' c='17' s='7'/>
+<Pos l='202' c='17' s='7'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='no' typref='5'>
 <Attr>
-<Pos l='210' c='28' s='2'/>
+<Pos l='202' c='28' s='2'/>
 </Attr>
 </Id>
 </Values>
@@ -2131,19 +2061,19 @@
 <Else>
 <Assignement_Sub>
 <Attr>
-<Pos l='213' c='21' s='2'/>
+<Pos l='205' c='21' s='2'/>
 </Attr>
 <Variables>
 <Id value='visited' typref='5'>
 <Attr>
-<Pos l='213' c='13' s='7'/>
+<Pos l='205' c='13' s='7'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='Exceeding_Maze_Boundary' typref='5'>
 <Attr>
-<Pos l='213' c='24' s='23'/>
+<Pos l='205' c='24' s='23'/>
 </Attr>
 </Id>
 </Values>
@@ -2154,31 +2084,31 @@
 </Operation>
 <Operation name='RobotsRoute'>
 <Attr>
-<Pos l='221' c='5' s='5' endLine='224'/>
+<Pos l='213' c='5' s='5' endLine='216'/>
 </Attr>
 <Output_Parameters>
 <Id value='route' typref='7'>
 <Attr>
-<Pos l='221' c='5' s='5'/>
+<Pos l='213' c='5' s='5'/>
 </Attr>
 </Id>
 </Output_Parameters>
 <Body>
 <Assignement_Sub>
 <Attr>
-<Pos l='223' c='15' s='2'/>
+<Pos l='215' c='15' s='2'/>
 </Attr>
 <Variables>
 <Id value='route' typref='7'>
 <Attr>
-<Pos l='223' c='9' s='5'/>
+<Pos l='215' c='9' s='5'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Id value='visited_squares' typref='7'>
 <Attr>
-<Pos l='223' c='18' s='15'/>
+<Pos l='215' c='18' s='15'/>
 </Attr>
 </Id>
 </Values>
@@ -2187,34 +2117,34 @@
 </Operation>
 <Operation name='ResetRobot'>
 <Attr>
-<Pos l='230' c='5' s='10' endLine='233'/>
+<Pos l='222' c='5' s='10' endLine='225'/>
 </Attr>
 <Body>
 <Assignement_Sub>
 <Attr>
-<Pos l='232' c='44' s='2'/>
+<Pos l='224' c='44' s='2'/>
 </Attr>
 <Variables>
 <Id value='robot_x_position' typref='1'>
 <Attr>
-<Pos l='232' c='9' s='16'/>
+<Pos l='224' c='9' s='16'/>
 </Attr>
 </Id>
 <Id value='robot_y_position' typref='1'>
 <Attr>
-<Pos l='232' c='27' s='16'/>
+<Pos l='224' c='27' s='16'/>
 </Attr>
 </Id>
 </Variables>
 <Values>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='232' c='47' s='1'/>
+<Pos l='224' c='47' s='1'/>
 </Attr>
 </Integer_Literal>
 <Integer_Literal value='1' typref='1'>
 <Attr>
-<Pos l='232' c='50' s='1'/>
+<Pos l='224' c='50' s='1'/>
 </Attr>
 </Integer_Literal>
 </Values>
