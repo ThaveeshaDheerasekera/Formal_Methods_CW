@@ -13,7 +13,7 @@ DEFINITIONS
     // GUI animation functions
     ANIMATION_FUNCTION == ({ row, column, image | column:x_axis_range & row:y_axis_range & image=0 & (column, 6-row) /: internal_walls });
     ANIMATION_FUNCTION1 == ({ row, column, image | column:x_axis_range & row:y_axis_range & image=1 & (column, 6-row) : internal_walls });
-    ANIMATION_FUNCTION2 == ({ row, column, image | column:x_axis_range & row:y_axis_range & image=2 & column=robot_x_position & row=robot_y_position });
+    ANIMATION_FUNCTION2 == ({ row, column, image | column:x_axis_range & row:y_axis_range & image=2 & column=robot_x_position & row=(6-robot_y_position) });
     
     // Images for animations
     ANIMATION_IMG0 == "./images/empty_cell.gif";
