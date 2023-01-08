@@ -21,7 +21,7 @@ DEFINITIONS
     ANIMATION_IMG2 == "./images/robot.gif" ;
 
 SETS
-    OUTPUTS = { Moved_North , Moved_East , Moved_South , Moved_West , Exceeding_Maze_Boundary , Maze_Wall_Crash , Cannot_Teleport_Immediately , Cannot_Teleport_To_The_Same_Square , Teleported , yes , no }
+    OUTPUTS = { MOVED_NORTH , MOVED_EAST , MOVED_SOUTH , MOVED_WEST , EXCEEDING_MAZE_BOUNDARY , WALL_CRASH , CANNOT_TELEPORT_IMMEDIATELY , CANNOT_TELEPORT_TO_THE_SAME_SQUARE , TELEPORTED , YES , NO }
 
 ABSTRACT_VARIABLES
     robot_x_position ,
@@ -56,16 +56,16 @@ OPERATIONS
         // Checks whether the square above the current position is within the maze 
         IF ( robot_y_position + 1 > max ( y_axis_range ) )
         THEN
-            output := Exceeding_Maze_Boundary
+            output := EXCEEDING_MAZE_BOUNDARY
         // Checks whether the square above the current position is not an internal wall
         ELSIF ( ( robot_x_position |-> robot_y_position + 1 ) : internal_walls )
         THEN
-            output := Maze_Wall_Crash
+            output := WALL_CRASH
         ELSE
             visited_squares := ( visited_squares <- ( robot_x_position |-> robot_y_position + 1 ) ) ||
             current_position := ( robot_x_position |-> robot_y_position + 1 ) ||
             robot_y_position := robot_y_position + 1 ||
-            output := Moved_North
+            output := MOVED_NORTH
         END
     END ;
 
@@ -78,16 +78,16 @@ OPERATIONS
         // Checks whether the square to the right of the current position is within the maze 
         IF ( robot_x_position + 1 > max ( x_axis_range ) )
         THEN
-            output := Exceeding_Maze_Boundary
+            output := EXCEEDING_MAZE_BOUNDARY
         // Checks whether the square to the right of the current position is not an internal wall
         ELSIF ( ( robot_x_position + 1 |-> robot_y_position ) : internal_walls )
         THEN
-            output := Maze_Wall_Crash
+            output := WALL_CRASH
         ELSE
             visited_squares := ( visited_squares <- ( robot_x_position + 1 |-> robot_y_position ) ) ||
             current_position := ( robot_x_position + 1 |-> robot_y_position ) ||
             robot_x_position := robot_x_position + 1 ||
-            output := Moved_East
+            output := MOVED_EAST
         END
     END ;
 
@@ -100,16 +100,16 @@ OPERATIONS
         // Checks whether the square below the current position is within the maze
         IF ( robot_y_position - 1 < min ( y_axis_range ) )
         THEN
-            output := Exceeding_Maze_Boundary
+            output := EXCEEDING_MAZE_BOUNDARY
         // Checks whether the square below the current position is not an internal wall
         ELSIF ( ( robot_x_position |-> robot_y_position - 1 ) : internal_walls )
         THEN
-            output := Maze_Wall_Crash
+            output := WALL_CRASH
         ELSE
             visited_squares := ( visited_squares <- ( robot_x_position |-> robot_y_position - 1 ) ) ||
             current_position := ( robot_x_position |-> robot_y_position - 1 ) ||
             robot_y_position := robot_y_position - 1 ||
-            output := Moved_South
+            output := MOVED_SOUTH
         END
     END ;
 
@@ -122,16 +122,16 @@ OPERATIONS
         // Checks whether the square to the left of the current position is within the maze 
         IF ( robot_x_position - 1 < min ( x_axis_range ) )
         THEN
-            output := Exceeding_Maze_Boundary
+            output := EXCEEDING_MAZE_BOUNDARY
         // Checks whether the square to the left of the current position is not an internal wall
         ELSIF ( ( robot_x_position - 1 |-> robot_y_position ) : internal_walls )
         THEN
-            output := Maze_Wall_Crash
+            output := WALL_CRASH
         ELSE
             visited_squares := ( visited_squares <- ( robot_x_position - 1 |-> robot_y_position ) ) ||
             current_position := ( robot_x_position - 1 |-> robot_y_position ) ||
             robot_x_position := robot_x_position - 1 ||
-            output := Moved_West
+            output := MOVED_WEST
         END
     END ;
 
@@ -141,22 +141,16 @@ OPERATIONS
      * Teleport only works after an initial movement has been made. (E.g:- After the first MoveNorth Operation)
      */
     output <-- Teleport ( teleport_x_position , teleport_y_position ) =
-    PRE ( teleport_x_position : NATURAL1 ) & ( teleport_y_position : NATURAL1 ) & ( teleport_x_position : x_axis_range ) & ( teleport_y_position : y_axis_range )
+    PRE ( teleport_x_position : NATURAL1 ) & ( teleport_y_position : NATURAL1 ) & ( teleport_x_position : x_axis_range ) & ( teleport_y_position : y_axis_range ) & ( ( teleport_x_position |-> teleport_y_position ) : maze ) & ( ( teleport_x_position |-> teleport_y_position ) /= ( robot_x_position |-> robot_y_position ) )
     THEN
         IF ( ( teleport_x_position |-> teleport_y_position ) : internal_walls ) // Check if the square the robot is trying to teleport to, is an internal wall 
         THEN
-            output := Maze_Wall_Crash
+            output := WALL_CRASH
         ELSIF ( ( size ( visited_squares ) = 1 ) ) // It is not acceptable to immediately teleport the robot, to the exit square
         THEN
-            output := Cannot_Teleport_Immediately
-        ELSIF ( ( teleport_x_position |-> teleport_y_position ) : maze )
-        THEN
-                    output := Cannot_Teleport_Immediately
-        ELSIF ( ( teleport_x_position |-> teleport_y_position ) /= ( robot_x_position |-> robot_y_position ) )
-        THEN
-                    output := Cannot_Teleport_Immediately
+            output := CANNOT_TELEPORT_IMMEDIATELY
         ELSE
-            robot_x_position , robot_y_position , output := teleport_x_position , teleport_y_position , Teleported
+            robot_x_position , robot_y_position , output := teleport_x_position , teleport_y_position , TELEPORTED
         END
     END ;
 
@@ -171,22 +165,22 @@ OPERATIONS
 
     /*
      * FoundExit:
-     * Returns yes/no depending on whether the robot has reached the exit square or not.
+     * Returns YES/NO depending on whether the robot has reached the exit square or not.
      */
     enquiry <-- FoundExit =
     BEGIN
         // Checks if the robot's current position is the exit square
         IF ( current_position : exit_square )
         THEN
-            enquiry := yes
+            enquiry := YES
         ELSE
-            enquiry := no
+            enquiry := NO
         END
     END ;
 
     /*
      * VisitedSquare:
-     * Returns whether the robot has visited a given square already (yes/no)
+     * Returns whether the robot has visited a given square already (YES/NO)
      */
     visited <-- VisitedSquare ( visited_x_position , visited_y_position ) =
     PRE visited : OUTPUTS & visited_x_position : NATURAL1 & visited_y_position : NATURAL1
@@ -197,12 +191,12 @@ OPERATIONS
             // Checks if the robot has already visited a particular square (Doesn't include the current square, but all the previouse squares)
             IF ( ( visited_x_position |-> visited_y_position ) : ran ( front ( visited_squares ) ) )
             THEN
-                visited := yes
+                visited := YES
             ELSE
-                visited := no
+                visited := NO
             END
         ELSE
-            visited := Exceeding_Maze_Boundary
+            visited := EXCEEDING_MAZE_BOUNDARY
         END
     END ;
 

@@ -1,6 +1,0 @@
-digraph module_hierarchy {
-  graph [page="8.5, 11",ratio=fill,size="7.5,10"];
-  1 [shape=record, style=bold, color=darkgreen, label="|{MACHINE Robot\n|SETS\nOUTPUTS = \{Moved_North,...,no\}\n|VARIABLES\n (4 more)|OPERATIONS\n (10 more)}|"];
-  2 [shape=record, color=steelblue, label="|{MACHINE Maze\n|CONSTANTS\n (8 more)}|"];
-  1 -> 2 [label="SEES",color=navyblue,style=dashed];
-}
